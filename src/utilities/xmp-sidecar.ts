@@ -3,6 +3,13 @@ import * as path from "path";
 import * as xml2js from "xml2js";
 
 export class XmpSidecar {
+	public static getXmpPath(pathToFile: string) {
+		const pathObject = path.parse(pathToFile);
+		pathObject.base = pathObject.base.replace(pathObject.ext, ".xmp");
+		pathObject.ext = ".xmp";
+		return pathObject;
+	}
+
 	public static load(pathToFile: string) {
 		return new XmpSidecar(pathToFile);
 	}
