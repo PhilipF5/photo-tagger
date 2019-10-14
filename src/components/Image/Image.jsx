@@ -8,12 +8,18 @@ const Image = ({ data: { content, path }, selectedTags }) => {
 		xmpData.addTags(selectedTags);
 		setXmpData(xmpData.save());
 	};
+	const removeTag = (tag) => {
+		xmpData.removeTag(tag);
+		setXmpData(xmpData.save());
+	};
 	return (
 		<div className={styles.image}>
 			<img src={"data:;base64," + content} onClick={applyTags} />
 			<div className={styles.tags}>
-				{xmpData.tags.map((t) => (
-					<span className={styles.tag}>{t}</span>
+				{xmpData.tags.sort().map((t) => (
+					<span className={styles.tag} onClick={() => removeTag(t)}>
+						{t}
+					</span>
 				))}
 			</div>
 		</div>
