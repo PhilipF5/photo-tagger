@@ -4,7 +4,7 @@ import styles from "./Image.module.css";
 const Image = ({ data }) => {
 	return (
 		<div className={styles.image}>
-			<img src={"data:image/jpg;base64," + data.content} />
+			<img src={"data:;base64," + data.content} />
 		</div>
 	);
 };
