@@ -9,6 +9,11 @@ const Image = ({ data, selectedTags }) => {
 	return (
 		<div className={styles.image}>
 			<img src={"data:;base64," + data.content} onClick={applyTags} />
+			<div className={styles.tags}>
+				{data.xmpData.tags.map((t) => (
+					<span className={styles.tag}>{t}</span>
+				))}
+			</div>
 		</div>
 	);
 };
