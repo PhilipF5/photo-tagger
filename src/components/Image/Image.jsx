@@ -1,16 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
+import { XmpSidecar } from "../../utilities/xmp-sidecar";
 import styles from "./Image.module.css";
 
-const Image = ({ data, selectedTags }) => {
+const Image = ({ data: { content, path }, selectedTags }) => {
+	const [xmpData, setXmpData] = useState(XmpSidecar.load(`${path.dir}/${path.base}`));
 	const applyTags = () => {
-		data.xmpData.addTags(selectedTags);
-		data.xmpData.save();
+		xmpData.addTags(selectedTags);
+		setXmpData(xmpData.save());
 	};
 	return (
 		<div className={styles.image}>
-			<img src={"data:;base64," + data.content} onClick={applyTags} />
+			<img src={"data:;base64," + content} onClick={applyTags} />
 			<div className={styles.tags}>
-				{data.xmpData.tags.map((t) => (
+				{xmpData.tags.map((t) => (
 					<span className={styles.tag}>{t}</span>
 				))}
 			</div>
