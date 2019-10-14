@@ -66,6 +66,20 @@ export class XmpSidecar {
 		this._filePath.ext = ".xmp";
 
 		if (!_fs.existsSync(this.filePath)) {
+			const defaultSidecar = `
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="XMP Core 4.4.0-Exiv2">
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+		<rdf:Description rdf:about="" xmlns:MicrosoftPhoto="http://ns.microsoft.com/photo/1.0/" xmlns:xmpMM="http://ns.adobe.com/xap/1.0/mm/" xmlns:xmp="http://ns.adobe.com/xap/1.0/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:fstop="http://www.fstopapp.com/xmp/">
+			<dc:subject>
+				<rdf:Bag>
+					<rdf:li></rdf:li>
+				</rdf:Bag>
+			</dc:subject>
+		</rdf:Description>
+	</rdf:RDF>
+</x:xmpmeta>`;
+			_fs.writeFileSync(this.filePath, defaultSidecar);
 		}
 
 		xml2js.parseString(_fs.readFileSync(this.filePath), (err, result) => {
