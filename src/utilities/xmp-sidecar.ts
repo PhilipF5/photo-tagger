@@ -89,7 +89,7 @@ export class XmpSidecar {
 
 	public addTag(tag: string): string[] {
 		if (!this.tags.includes(tag)) {
-			this.tags.push(tag);
+			this.tags = [...this.tags.filter((t) => !!t), tag];
 		}
 		return this.tags;
 	}
