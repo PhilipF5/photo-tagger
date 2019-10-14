@@ -1,6 +1,6 @@
-import { promises as fs } from "fs";
-import path from "path";
 import { XmpSidecar } from "./xmp-sidecar";
+const fs = window.require("fs").promises;
+const path = window.require("path");
 
 export const loadFile = async (filePath: string) => {
 	return {

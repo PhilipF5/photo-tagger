@@ -8,6 +8,9 @@ function createWindow() {
 		height: 768,
 		useContentSize: true,
 		resizable: false,
+		webPreferences: {
+			nodeIntegration: true,
+		},
 	});
 
 	win.loadFile(`build/index.html`);

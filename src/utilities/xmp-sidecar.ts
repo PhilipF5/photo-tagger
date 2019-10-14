@@ -1,10 +1,12 @@
-import * as fs from "fs";
-import * as path from "path";
+import fs from "fs";
+import path from "path";
 import * as xml2js from "xml2js";
+const _fs: typeof fs = window.require("fs");
+const _path: typeof path = window.require("path");
 
 export class XmpSidecar {
 	public static getXmpPath(pathToFile: string) {
-		const pathObject = path.parse(pathToFile);
+		const pathObject = _path.parse(pathToFile);
 		pathObject.base = pathObject.base.replace(pathObject.ext, ".xmp");
 		pathObject.ext = ".xmp";
 		return pathObject;
@@ -30,7 +32,7 @@ export class XmpSidecar {
 	}
 
 	public get filePath(): string {
-		return path.format(this._filePath);
+		return _path.format(this._filePath);
 	}
 
 	public get name(): string {
@@ -58,16 +60,15 @@ export class XmpSidecar {
 	}
 
 	constructor(pathToFile: string) {
-		let filePath = path.resolve(__dirname, pathToFile);
-		this._filePath = path.parse(filePath);
+		let filePath = _path.resolve(__dirname, pathToFile);
+		this._filePath = _path.parse(filePath);
 		this._filePath.base = this._filePath.base.replace(this._filePath.ext, ".xmp");
 		this._filePath.ext = ".xmp";
 
-		if (!fs.existsSync(this.filePath)) {
-			throw new Error("XMP sidecar not found at: " + this.filePath);
+		if (!_fs.existsSync(this.filePath)) {
 		}
 
-		xml2js.parseString(fs.readFileSync(this.filePath), (err, result) => {
+		xml2js.parseString(_fs.readFileSync(this.filePath), (err, result) => {
 			this._xml = result;
 		});
 	}
@@ -104,10 +105,10 @@ export class XmpSidecar {
 	public save(filePath?: string): XmpSidecar {
 		let builder = new xml2js.Builder();
 		if (filePath) {
-			filePath = path.resolve(__dirname, filePath);
+			filePath = _path.resolve(__dirname, filePath);
 		}
-		filePath = filePath || path.format(this._filePath);
-		fs.writeFileSync(filePath, builder.buildObject(this.rawXml));
+		filePath = filePath || _path.format(this._filePath);
+		_fs.writeFileSync(filePath, builder.buildObject(this.rawXml));
 		return new XmpSidecar(filePath);
 	}
 
