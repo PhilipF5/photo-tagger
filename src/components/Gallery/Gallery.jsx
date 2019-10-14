@@ -6,7 +6,7 @@ const Gallery = ({ images, setImages, selectedTags }) => {
 	return (
 		<div className={styles.gallery}>
 			{images.map((i) => (
-				<Image data={i} />
+				<Image data={i} selectedTags={selectedTags} />
 			))}
 		</div>
 	);

@@ -7,7 +7,7 @@ const { remote } = window.require("electron");
 
 const PhotoTaggerApp = () => {
 	const [images, setImages] = useState([]);
-	const [selectedTags, setSelectedTags] = useState([]);
+	const [selectedTags, setSelectedTags] = useState(["university", "aerial", "construction"]);
 
 	useEffect(() => {
 		remote.dialog.showOpenDialog(

@@ -94,6 +94,11 @@ export class XmpSidecar {
 		return this.tags;
 	}
 
+	public addTags(tags: string[]): string[] {
+		this.tags = [...this.tags.filter((t) => !!t), ...tags.filter((t) => !this.tags.includes(t))];
+		return this.tags;
+	}
+
 	public getAttribute(name: string): string {
 		return this._descAttributes[name];
 	}
