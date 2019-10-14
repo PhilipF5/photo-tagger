@@ -1,8 +1,15 @@
 import React from "react";
+import Image from "../Image/Image";
 import styles from "./Gallery.module.css";
 
 const Gallery = ({ images, setImages, selectedTags }) => {
-	return images.map((i) => <div className={styles.gallery}>{i}</div>);
+	return (
+		<div className={styles.gallery}>
+			{images.map((i) => (
+				<Image data={i} />
+			))}
+		</div>
+	);
 };
 
 export default Gallery;
