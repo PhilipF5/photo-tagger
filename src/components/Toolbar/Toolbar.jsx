@@ -1,5 +1,8 @@
+import { faFolderOpen } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { getFilesFromFolder, loadFile } from "../../utilities/file-utilities";
+import Button from "../Button/Button";
 import styles from "./Toolbar.module.css";
 
 const { remote } = window.require("electron");
@@ -7,9 +10,9 @@ const { remote } = window.require("electron");
 const Toolbar = ({ setImages }) => {
 	return (
 		<div className={styles.toolbar}>
-			<button className={styles.button} onClick={() => openFolder(setImages)}>
-				Open
-			</button>
+			<Button onClick={() => openFolder(setImages)}>
+				<FontAwesomeIcon icon={faFolderOpen} />
+			</Button>
 		</div>
 	);
 };
