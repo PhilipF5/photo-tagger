@@ -12,3 +12,8 @@
 	max-width: 80%;
 	object-fit: contain;
 }
+
+.tags {
+	font-size: smaller;
+	text-align: center;
+}
