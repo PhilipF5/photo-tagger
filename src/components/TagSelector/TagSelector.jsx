@@ -1,4 +1,7 @@
+import { faPlus, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
+import Button from "../Button/Button";
 import Tag from "../Tag/Tag";
 import styles from "./TagSelector.module.css";
 
@@ -38,16 +41,16 @@ const TagSelector = ({ selectedTags, setSelectedTags }) => {
 			<h3>All tags</h3>
 			<div className={styles.tag}>
 				<input type="text" value={newTag} onChange={handleNewTagChange} placeholder="Add a tag..." />
-				<button className={styles.addButton} onClick={addTag}>
-					+
-				</button>
+				<Button className={styles.addButton} onClick={addTag}>
+					<FontAwesomeIcon icon={faPlus} />
+				</Button>
 			</div>
 			{tags.sort().map((t) => (
 				<Tag onClick={() => toggleTag(t)}>
 					{t}
-					<button className={styles.deleteButton} onClick={(e) => deleteTag(e, t)}>
-						X
-					</button>
+					<Button className={styles.deleteButton} onClick={(e) => deleteTag(e, t)}>
+						<FontAwesomeIcon icon={faTrashAlt} />
+					</Button>
 				</Tag>
 			))}
 		</div>

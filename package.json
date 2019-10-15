@@ -23,6 +23,7 @@
 		"@types/node": "12.7.12",
 		"@types/react": "16.9.5",
 		"@types/react-dom": "16.9.1",
+		"classnames": "2.2.6",
 		"electron-store": "5.0.0",
 		"react": "^16.10.2",
 		"react-dom": "^16.10.2",
@@ -33,6 +34,7 @@
 		"xml2js": "0.4.22"
 	},
 	"devDependencies": {
+		"@types/classnames": "2.2.9",
 		"@types/uuid": "3.4.5",
 		"@types/uuid-validate": "0.0.1",
 		"@types/xml2js": "0.4.5",
