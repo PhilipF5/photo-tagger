@@ -15,6 +15,7 @@ const Image = ({ data: { content, path }, selectedTags }) => {
 	};
 	return (
 		<div className={styles.image}>
+			<div className={styles.filename}>{path.base}</div>
 			<img src={"data:;base64," + content} onClick={applyTags} />
 			<div className={styles.tags}>
 				{xmpData.tags.sort().map((t) => (
