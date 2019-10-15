@@ -12,10 +12,3 @@
 	max-width: 80%;
 	object-fit: contain;
 }
-
-.tag {
-	display: inline-block;
-	border: 1px solid black;
-	border-radius: 5px;
-	padding: 3px;
-}

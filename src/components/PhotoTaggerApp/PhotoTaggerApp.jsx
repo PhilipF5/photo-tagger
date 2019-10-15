@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getFilesFromFolder, loadFile } from "../../utilities/file-utilities";
 import Gallery from "../Gallery/Gallery";
+import TagSelector from "../TagSelector/TagSelector";
 import styles from "./PhotoTaggerApp.module.css";
 
 const { remote } = window.require("electron");
@@ -25,6 +26,7 @@ const PhotoTaggerApp = () => {
 	return (
 		<div className={styles.app}>
 			<Gallery images={images} setImages={setImages} selectedTags={selectedTags} />
+			<TagSelector selectedTags={selectedTags} setSelectedTags={setSelectedTags} />
 		</div>
 	);
 };

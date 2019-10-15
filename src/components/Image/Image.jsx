@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { XmpSidecar } from "../../utilities/xmp-sidecar";
+import Tag from "../Tag/Tag";
 import styles from "./Image.module.css";
 
 const Image = ({ data: { content, path }, selectedTags }) => {
@@ -17,9 +18,7 @@ const Image = ({ data: { content, path }, selectedTags }) => {
 			<img src={"data:;base64," + content} onClick={applyTags} />
 			<div className={styles.tags}>
 				{xmpData.tags.sort().map((t) => (
-					<span className={styles.tag} onClick={() => removeTag(t)}>
-						{t}
-					</span>
+					<Tag onClick={() => removeTag(t)}>{t}</Tag>
 				))}
 			</div>
 		</div>
