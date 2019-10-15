@@ -6,7 +6,7 @@ import styles from "./PhotoTaggerApp.module.css";
 
 const PhotoTaggerApp = () => {
 	const [images, setImages] = useState([]);
-	const [selectedTags, setSelectedTags] = useState(["university", "aerial", "construction"]);
+	const [selectedTags, setSelectedTags] = useState([]);
 
 	return (
 		<div className={styles.app}>
