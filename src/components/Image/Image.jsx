@@ -1,18 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { XmpSidecar } from "../../utilities/xmp-sidecar";
 import Tag from "../Tag/Tag";
 import styles from "./Image.module.css";
 
 const Image = ({ data: { content, path }, selectedTags }) => {
-	const [xmpData, setXmpData] = useState(XmpSidecar.load(`${path.dir}/${path.base}`));
-	const applyTags = () => {
+	const [xmpData, setXmpData] = useState({ tags: [] });
+
+	useEffect(() => {
+		const getXmpData = async () => {
+			setXmpData(await XmpSidecar.load(`${path.dir}/${path.base}`));
+		};
+		getXmpData();
+	}, [path.dir, path.base]);
+
+	const applyTags = async () => {
 		xmpData.addTags(selectedTags);
-		setXmpData(xmpData.save());
+		setXmpData(await xmpData.save());
 	};
-	const removeTag = (tag) => {
+	const removeTag = async (tag) => {
 		xmpData.removeTag(tag);
-		setXmpData(xmpData.save());
+		setXmpData(await xmpData.save());
 	};
+
 	return (
 		<div className={styles.image}>
 			<div className={styles.filename}>{path.base}</div>

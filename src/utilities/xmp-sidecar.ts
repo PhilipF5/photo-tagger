@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import * as xml2js from "xml2js";
-const _fs: typeof fs = window.require("fs");
+const _fs: typeof fs.promises = window.require("fs").promises;
 const _path: typeof path = window.require("path");
 
 export class XmpSidecar {
@@ -12,8 +12,31 @@ export class XmpSidecar {
 		return pathObject;
 	}
 
-	public static load(pathToFile: string) {
-		return new XmpSidecar(pathToFile);
+	public static async load(pathToFile: string) {
+		const object = new XmpSidecar(pathToFile);
+		let sidecarContents;
+		try {
+			sidecarContents = await _fs.readFile(object.filePath);
+		} catch {
+			const defaultSidecar = `
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="XMP Core 4.4.0-Exiv2">
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+		<rdf:Description rdf:about="" xmlns:MicrosoftPhoto="http://ns.microsoft.com/photo/1.0/" xmlns:xmpMM="http://ns.adobe.com/xap/1.0/mm/" xmlns:xmp="http://ns.adobe.com/xap/1.0/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:fstop="http://www.fstopapp.com/xmp/">
+			<dc:subject>
+				<rdf:Bag>
+					<rdf:li></rdf:li>
+				</rdf:Bag>
+			</dc:subject>
+		</rdf:Description>
+	</rdf:RDF>
+</x:xmpmeta>`;
+			await _fs.writeFile(object.filePath, defaultSidecar);
+			sidecarContents = await _fs.readFile(object.filePath);
+		}
+
+		object._xml = await xml2js.parseStringPromise(sidecarContents);
+		return object;
 	}
 
 	private _filePath: path.ParsedPath;
@@ -64,27 +87,6 @@ export class XmpSidecar {
 		this._filePath = _path.parse(filePath);
 		this._filePath.base = this._filePath.base.replace(this._filePath.ext, ".xmp");
 		this._filePath.ext = ".xmp";
-
-		if (!_fs.existsSync(this.filePath)) {
-			const defaultSidecar = `
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="XMP Core 4.4.0-Exiv2">
-	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-		<rdf:Description rdf:about="" xmlns:MicrosoftPhoto="http://ns.microsoft.com/photo/1.0/" xmlns:xmpMM="http://ns.adobe.com/xap/1.0/mm/" xmlns:xmp="http://ns.adobe.com/xap/1.0/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:fstop="http://www.fstopapp.com/xmp/">
-			<dc:subject>
-				<rdf:Bag>
-					<rdf:li></rdf:li>
-				</rdf:Bag>
-			</dc:subject>
-		</rdf:Description>
-	</rdf:RDF>
-</x:xmpmeta>`;
-			_fs.writeFileSync(this.filePath, defaultSidecar);
-		}
-
-		xml2js.parseString(_fs.readFileSync(this.filePath), (err, result) => {
-			this._xml = result;
-		});
 	}
 
 	public addTag(tag: string): string[] {
@@ -121,13 +123,13 @@ export class XmpSidecar {
 		return this.tags;
 	}
 
-	public save(filePath?: string): XmpSidecar {
+	public async save(filePath?: string): Promise<XmpSidecar> {
 		let builder = new xml2js.Builder();
 		if (filePath) {
 			filePath = _path.resolve(__dirname, filePath);
 		}
 		filePath = filePath || _path.format(this._filePath);
-		_fs.writeFileSync(filePath, builder.buildObject(this.rawXml));
+		await _fs.writeFile(filePath, builder.buildObject(this.rawXml));
 		return new XmpSidecar(filePath);
 	}
 
