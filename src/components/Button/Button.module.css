@@ -29,3 +29,7 @@
 .button:hover .background {
 	background-color: currentColor;
 }
+
+.button:focus {
+	outline: none;
+}
