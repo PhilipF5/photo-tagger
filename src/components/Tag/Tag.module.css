@@ -1,6 +1,12 @@
 .tag {
+	cursor: pointer;
 	display: inline-block;
 	border: 1px solid black;
 	border-radius: 5px;
 	padding: 3px;
+}
+
+.highlight {
+	background-color: black;
+	color: white;
 }

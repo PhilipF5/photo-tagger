@@ -35,7 +35,7 @@ const TagSelector = ({ selectedTags, setSelectedTags }) => {
 		<div className={styles.sidebar}>
 			<h3>Selected tags</h3>
 			{selectedTags.sort().map((t) => (
-				<Tag>{t}</Tag>
+				<Tag onClick={() => toggleTag(t)}>{t}</Tag>
 			))}
 			<h3>Suggested tags</h3>
 			<h3>All tags</h3>
@@ -46,7 +46,7 @@ const TagSelector = ({ selectedTags, setSelectedTags }) => {
 				</Button>
 			</div>
 			{tags.sort().map((t) => (
-				<Tag onClick={() => toggleTag(t)}>
+				<Tag highlight={selectedTags.includes(t)} onClick={() => toggleTag(t)}>
 					{t}
 					<Button className={styles.deleteButton} onClick={(e) => deleteTag(e, t)}>
 						<FontAwesomeIcon icon={faTrashAlt} />
