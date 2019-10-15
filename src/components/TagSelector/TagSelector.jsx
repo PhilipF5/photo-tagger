@@ -11,9 +11,14 @@ const TagSelector = ({ selectedTags, setSelectedTags }) => {
 
 	useEffect(() => {
 		store.set("tags", tags);
+		setNewTag("");
 	}, [tags]);
 
 	const addTag = () => !tags.includes(newTag) && setTags([...tags, newTag]);
+	const deleteTag = (event, tag) => {
+		event.stopPropagation();
+		setTags(tags.filter((t) => t !== tag));
+	};
 	const handleNewTagChange = ({ target: { value } }) => setNewTag(value);
 	const toggleTag = (tag) => {
 		if (selectedTags.includes(tag)) {
@@ -38,12 +43,12 @@ const TagSelector = ({ selectedTags, setSelectedTags }) => {
 				</button>
 			</div>
 			{tags.sort().map((t) => (
-				<div className={styles.tag}>
-					<div className={styles.tagname} onClick={() => toggleTag(t)}>
-						{t}
-					</div>
-					<button className={styles.deleteButton}>X</button>
-				</div>
+				<Tag onClick={() => toggleTag(t)}>
+					{t}
+					<button className={styles.deleteButton} onClick={(e) => deleteTag(e, t)}>
+						X
+					</button>
+				</Tag>
 			))}
 		</div>
 	);
