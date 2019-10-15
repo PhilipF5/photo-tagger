@@ -39,7 +39,7 @@ const TagSelector = ({ selectedTags, setSelectedTags }) => {
 			))}
 			<h3>Suggested tags</h3>
 			<h3>All tags</h3>
-			<div className={styles.tag}>
+			<div className={styles.newTag}>
 				<input type="text" value={newTag} onChange={handleNewTagChange} placeholder="Add a tag..." />
 				<Button className={styles.addButton} onClick={addTag}>
 					<FontAwesomeIcon icon={faPlus} />

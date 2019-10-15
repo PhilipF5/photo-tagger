@@ -6,3 +6,19 @@
 	color: rgb(215, 0, 21);
 	font-size: 0.7em;
 }
+
+.newTag {
+	align-items: center;
+	display: flex;
+}
+
+.newTag input {
+	border: none;
+	border-bottom: 1px solid black;
+	font: inherit;
+}
+
+.newTag input:focus {
+	border-bottom-color: rgb(36, 138, 61);
+	outline: none;
+}
