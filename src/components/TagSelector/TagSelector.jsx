@@ -1,4 +1,4 @@
-import { faPlus, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faEdit, faPlus, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useMemo, useState } from "react";
 import Button from "../Button/Button";
@@ -9,6 +9,7 @@ const Store = window.require("electron-store");
 const store = new Store({ name: "tagList" });
 
 const TagSelector = ({ selectedTags, setSelectedTags }) => {
+	const [editMode, setEditMode] = useState(false);
 	const [tags, setTags] = useState((store.get("tags") || []).sort());
 	const [newTag, setNewTag] = useState("");
 
@@ -26,9 +27,11 @@ const TagSelector = ({ selectedTags, setSelectedTags }) => {
 		return (
 			<Tag highlight={selectedTags.includes(tag)} onClick={() => toggleTag(tag)}>
 				{tag}
-				<Button className={styles.deleteButton} onClick={(e) => deleteTag(e, tag)}>
-					<FontAwesomeIcon icon={faTrashAlt} />
-				</Button>
+				{editMode ? (
+					<Button className={styles.deleteButton} onClick={(e) => deleteTag(e, tag)}>
+						<FontAwesomeIcon icon={faTrashAlt} />
+					</Button>
+				) : null}
 			</Tag>
 		);
 	};
@@ -37,6 +40,7 @@ const TagSelector = ({ selectedTags, setSelectedTags }) => {
 		setTags(tags.filter((t) => t !== tag));
 	};
 	const handleNewTagChange = ({ target: { value } }) => setNewTag(value);
+	const toggleEditMode = () => setEditMode((mode) => !mode);
 	const toggleTag = (tag) => {
 		if (selectedTags.includes(tag)) {
 			setSelectedTags(selectedTags.filter((t) => t !== tag));
@@ -52,7 +56,12 @@ const TagSelector = ({ selectedTags, setSelectedTags }) => {
 				<Tag onClick={() => toggleTag(t)}>{t}</Tag>
 			))}
 			<h3>Suggested tags</h3>
-			<h3>All tags</h3>
+			<h3>
+				All tags
+				<Button onClick={toggleEditMode}>
+					<FontAwesomeIcon icon={editMode ? faCheck : faEdit} />
+				</Button>
+			</h3>
 			<div className={styles.newTag}>
 				<input type="text" value={newTag} onChange={handleNewTagChange} placeholder="Add a tag..." />
 				<Button className={styles.addButton} onClick={addTag}>
