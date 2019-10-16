@@ -51,28 +51,32 @@ const TagSelector = ({ selectedTags, setSelectedTags }) => {
 
 	return (
 		<div className={styles.sidebar}>
-			<h3>Selected tags</h3>
-			{selectedTags.sort().map((t) => (
-				<Tag onClick={() => toggleTag(t)}>{t}</Tag>
-			))}
-			<h3>Suggested tags</h3>
-			<h3>
-				All tags
-				<Button onClick={toggleEditMode}>
-					<FontAwesomeIcon icon={editMode ? faCheck : faEdit} />
-				</Button>
-			</h3>
-			<div className={styles.newTag}>
-				<input type="text" value={newTag} onChange={handleNewTagChange} placeholder="Add a tag..." />
-				<Button className={styles.addButton} onClick={addTag}>
-					<FontAwesomeIcon icon={faPlus} />
-				</Button>
+			<div className={styles.section}>
+				<h3>Selected tags</h3>
+				{selectedTags.sort().map((t) => (
+					<Tag onClick={() => toggleTag(t)}>{t}</Tag>
+				))}
+				<h3>Suggested tags</h3>
+				<h3>
+					All tags
+					<Button onClick={toggleEditMode}>
+						<FontAwesomeIcon icon={editMode ? faCheck : faEdit} />
+					</Button>
+				</h3>
+				<div className={styles.newTag}>
+					<input type="text" value={newTag} onChange={handleNewTagChange} placeholder="Add a tag..." />
+					<Button className={styles.addButton} onClick={addTag}>
+						<FontAwesomeIcon icon={faPlus} />
+					</Button>
+				</div>
 			</div>
-			{topicTags.map(createTagElement)}
-			<h4>People</h4>
-			{personTags.map(createTagElement)}
-			<h4>Sources</h4>
-			{sourceTags.map(createTagElement)}
+			<div className={styles.section}>
+				{topicTags.map(createTagElement)}
+				<h4>People</h4>
+				{personTags.map(createTagElement)}
+				<h4>Sources</h4>
+				{sourceTags.map(createTagElement)}
+			</div>
 		</div>
 	);
 };

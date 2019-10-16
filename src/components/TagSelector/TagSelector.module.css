@@ -22,3 +22,13 @@
 	border-bottom-color: rgb(36, 138, 61);
 	outline: none;
 }
+
+.section {
+	overflow-y: scroll;
+}
+
+.sidebar {
+	display: grid;
+	grid-template-columns: 100%;
+	grid-template-rows: 1fr 1fr;
+}

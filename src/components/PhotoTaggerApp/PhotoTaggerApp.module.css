@@ -1,8 +1,9 @@
 .app {
 	display: grid;
 	grid-template-columns: 2.25fr 0.75fr;
-	grid-template-rows: 50px 1fr;
+	grid-template-rows: 50px minmax(0, 1fr);
 	height: 100vh;
+	overflow: hidden;
 	width: 100vw;
 }
 
