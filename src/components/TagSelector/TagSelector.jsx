@@ -13,7 +13,7 @@ const TagSelector = ({ selectedTags, setSelectedTags }) => {
 	const [newTag, setNewTag] = useState("");
 
 	useEffect(() => {
-		store.set("tags", tags);
+		store.set("tags", tags.sort());
 		setNewTag("");
 	}, [tags]);
 
