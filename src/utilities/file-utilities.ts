@@ -11,7 +11,7 @@ export async function getFilesFromFolder(folderPath: string): Promise<string[]> 
 }
 
 export function getPageOfFiles(files: string[], page: number, pageSize: number) {
-	return files.slice((page - 1) * pageSize, page * pageSize - 1);
+	return files.slice((page - 1) * pageSize, page * pageSize);
 }
 
 export async function loadFile(filePath: string) {
