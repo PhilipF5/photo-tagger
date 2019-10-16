@@ -25,7 +25,10 @@ const Toolbar = ({ setImages }) => {
 	};
 
 	useEffect(() => {
-		page > 0 && loadFiles(folderContents, page).then((files) => setImages(files));
+		if (page > 0) {
+			setImages([]);
+			loadFiles(folderContents, page).then((files) => setImages(files));
+		}
 	}, [folderContents, page, setImages]);
 
 	return (
@@ -48,7 +51,7 @@ const Toolbar = ({ setImages }) => {
 
 const loadFiles = async (files, page) => {
 	const fileNames = getPageOfFiles(files, page, pageSize);
-	return Promise.all(fileNames.map(async (fileName) => await loadFile(fileName)));
+	return Promise.all(fileNames.map((fileName) => loadFile(fileName)));
 };
 
 const loadFileNames = async () => {
