@@ -20,7 +20,10 @@ const Toolbar = ({ onFileLoaded, setImages }) => {
 };
 
 const openFolder = async (handleFiles, registerLoad) => {
-	const [folderPath] = await dialog.showOpenDialog(getCurrentWindow(), { properties: ["openDirectory"] });
+	const {
+		filePaths: [folderPath],
+	} = await dialog.showOpenDialog(getCurrentWindow(), { properties: ["openDirectory"] });
+
 	if (!folderPath) {
 		return;
 	}
@@ -35,7 +38,7 @@ const openFolder = async (handleFiles, registerLoad) => {
 				}),
 		),
 	);
-	console.log(files);
+
 	handleFiles(files);
 };
 
