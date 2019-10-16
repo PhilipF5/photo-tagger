@@ -9,11 +9,11 @@ const Store = window.require("electron-store");
 const store = new Store({ name: "tagList" });
 
 const TagSelector = ({ selectedTags, setSelectedTags }) => {
-	const [tags, setTags] = useState(store.get("tags") || []);
+	const [tags, setTags] = useState((store.get("tags") || []).sort());
 	const [newTag, setNewTag] = useState("");
 
 	useEffect(() => {
-		store.set("tags", tags.sort());
+		store.set("tags", tags);
 		setNewTag("");
 	}, [tags]);
 
