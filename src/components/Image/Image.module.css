@@ -8,9 +8,16 @@
 }
 
 .image img {
+	border: 2px solid transparent;
+	box-sizing: border-box;
+	cursor: pointer;
 	max-height: 80%;
 	max-width: 80%;
 	object-fit: contain;
+}
+
+.image img:hover {
+	border-color: rgb(36, 138, 61);
 }
 
 .tags {
