@@ -1,6 +1,6 @@
 import { faPlus, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Button from "../Button/Button";
 import Tag from "../Tag/Tag";
 import styles from "./TagSelector.module.css";
@@ -17,7 +17,21 @@ const TagSelector = ({ selectedTags, setSelectedTags }) => {
 		setNewTag("");
 	}, [tags]);
 
+	const personTags = useMemo(() => tags.filter((t) => t.startsWith("person:")), [tags]);
+	const sourceTags = useMemo(() => tags.filter((t) => t.startsWith("source:")), [tags]);
+	const topicTags = useMemo(() => tags.filter((t) => !t.match(/^\w+:/)), [tags]);
+
 	const addTag = () => !tags.includes(newTag) && setTags([...tags, newTag]);
+	const createTagElement = (tag) => {
+		return (
+			<Tag highlight={selectedTags.includes(tag)} onClick={() => toggleTag(tag)}>
+				{tag}
+				<Button className={styles.deleteButton} onClick={(e) => deleteTag(e, tag)}>
+					<FontAwesomeIcon icon={faTrashAlt} />
+				</Button>
+			</Tag>
+		);
+	};
 	const deleteTag = (event, tag) => {
 		event.stopPropagation();
 		setTags(tags.filter((t) => t !== tag));
@@ -45,14 +59,11 @@ const TagSelector = ({ selectedTags, setSelectedTags }) => {
 					<FontAwesomeIcon icon={faPlus} />
 				</Button>
 			</div>
-			{tags.sort().map((t) => (
-				<Tag highlight={selectedTags.includes(t)} onClick={() => toggleTag(t)}>
-					{t}
-					<Button className={styles.deleteButton} onClick={(e) => deleteTag(e, t)}>
-						<FontAwesomeIcon icon={faTrashAlt} />
-					</Button>
-				</Tag>
-			))}
+			{topicTags.map(createTagElement)}
+			<h4>People</h4>
+			{personTags.map(createTagElement)}
+			<h4>Sources</h4>
+			{sourceTags.map(createTagElement)}
 		</div>
 	);
 };
