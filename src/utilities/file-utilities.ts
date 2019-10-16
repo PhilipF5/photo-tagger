@@ -10,6 +10,10 @@ export async function getFilesFromFolder(folderPath: string): Promise<string[]> 
 		.map((f: string) => `${folderPath}/${f}`);
 }
 
+export function getPageOfFiles(files: string[], page: number, pageSize: number) {
+	return files.slice((page - 1) * pageSize, page * pageSize - 1);
+}
+
 export async function loadFile(filePath: string) {
 	return {
 		content: (await fs.readFile(filePath)).toString("base64"),

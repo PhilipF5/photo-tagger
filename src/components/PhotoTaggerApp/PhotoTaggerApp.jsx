@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import Gallery from "../Gallery/Gallery";
 import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
 import TagSelector from "../TagSelector/TagSelector";
@@ -10,7 +10,9 @@ const PhotoTaggerApp = () => {
 	const [loadCount, setLoadCount] = useState(0);
 	const [selectedTags, setSelectedTags] = useState([]);
 
-	const handleFileLoad = () => setLoadCount((count) => count + 1);
+	const handleFileLoad = useCallback(() => {
+		setLoadCount((count) => count + 1);
+	}, [setLoadCount]);
 
 	return (
 		<div className={styles.app}>
