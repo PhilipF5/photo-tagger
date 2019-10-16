@@ -31,8 +31,8 @@ const openFolder = async (handleFiles, registerLoad) => {
 	const fileNames = await getFilesFromFolder(folderPath);
 	const files = await Promise.all(
 		fileNames.map(
-			async (fn) =>
-				await loadFile(`${folderPath}/${fn}`).then((file) => {
+			async (fileName) =>
+				await loadFile(fileName).then((file) => {
 					registerLoad();
 					return file;
 				}),

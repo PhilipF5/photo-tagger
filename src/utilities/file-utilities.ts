@@ -5,7 +5,9 @@ const excludedExts = [".xmp", ".db", ".mp4"];
 
 export async function getFilesFromFolder(folderPath: string): Promise<string[]> {
 	const files = await fs.readdir(folderPath);
-	return files.filter((f: string) => !f.startsWith(".") && !excludedExts.includes(path.extname(f)));
+	return files
+		.filter((f: string) => !f.startsWith(".") && !excludedExts.includes(path.extname(f)))
+		.map((f: string) => `${folderPath}/${f}`);
 }
 
 export async function loadFile(filePath: string) {
