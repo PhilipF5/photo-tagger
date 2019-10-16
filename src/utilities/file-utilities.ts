@@ -1,9 +1,11 @@
 const fs = window.require("fs").promises;
 const path = window.require("path");
 
+const excludedExts = [".xmp", ".db", ".mp4"];
+
 export async function getFilesFromFolder(folderPath: string): Promise<string[]> {
 	const files = await fs.readdir(folderPath);
-	return files.filter((f: string) => !f.startsWith(".") && path.extname(f) !== ".xmp");
+	return files.filter((f: string) => !f.startsWith(".") && !excludedExts.includes(path.extname(f)));
 }
 
 export async function loadFile(filePath: string) {
