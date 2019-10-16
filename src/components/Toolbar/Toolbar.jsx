@@ -11,7 +11,7 @@ const {
 
 const pageSize = 100;
 
-const Toolbar = ({ onFileLoaded, setImages }) => {
+const Toolbar = ({ setImages }) => {
 	const [folderContents, setFolderContents] = useState([]);
 	const [page, setPage] = useState(0);
 	const pageCount = Math.ceil(folderContents.length / pageSize);
@@ -25,8 +25,8 @@ const Toolbar = ({ onFileLoaded, setImages }) => {
 	};
 
 	useEffect(() => {
-		page > 0 && loadFiles(folderContents, page, onFileLoaded).then((files) => setImages(files));
-	}, [folderContents, page, onFileLoaded, setImages]);
+		page > 0 && loadFiles(folderContents, page).then((files) => setImages(files));
+	}, [folderContents, page, setImages]);
 
 	return (
 		<div className={styles.toolbar}>
@@ -46,17 +46,9 @@ const Toolbar = ({ onFileLoaded, setImages }) => {
 	);
 };
 
-const loadFiles = async (files, page, registerLoad) => {
+const loadFiles = async (files, page) => {
 	const fileNames = getPageOfFiles(files, page, pageSize);
-	return Promise.all(
-		fileNames.map(
-			async (fileName) =>
-				await loadFile(fileName).then((file) => {
-					registerLoad();
-					return file;
-				}),
-		),
-	);
+	return Promise.all(fileNames.map(async (fileName) => await loadFile(fileName)));
 };
 
 const loadFileNames = async () => {
