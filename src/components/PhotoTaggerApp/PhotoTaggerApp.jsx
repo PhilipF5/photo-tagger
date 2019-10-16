@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Gallery from "../Gallery/Gallery";
+import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
 import TagSelector from "../TagSelector/TagSelector";
 import Toolbar from "../Toolbar/Toolbar";
 import styles from "./PhotoTaggerApp.module.css";
@@ -14,7 +15,11 @@ const PhotoTaggerApp = () => {
 	return (
 		<div className={styles.app}>
 			<Toolbar onFileLoaded={handleFileLoad} setImages={setImages} />
-			<Gallery images={images} setImages={setImages} selectedTags={selectedTags} />
+			{images.length ? (
+				<Gallery images={images} setImages={setImages} selectedTags={selectedTags} />
+			) : (
+				<LoadingIndicator loadCount={loadCount} />
+			)}
 			<TagSelector selectedTags={selectedTags} setSelectedTags={setSelectedTags} />
 		</div>
 	);
