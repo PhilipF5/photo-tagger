@@ -16,7 +16,9 @@ const PhotoTaggerApp = () => {
 
 	return (
 		<div className={styles.app}>
-			<Toolbar onFileLoaded={handleFileLoad} setImages={setImages} />
+			<div className={styles.toolbar}>
+				<Toolbar onFileLoaded={handleFileLoad} setImages={setImages} />
+			</div>
 			{images.length ? (
 				<Gallery images={images} setImages={setImages} selectedTags={selectedTags} />
 			) : (
