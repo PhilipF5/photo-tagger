@@ -1,8 +1,9 @@
-import { faCheck, faEdit, faPlus, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faEdit, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Button from "../Button/Button";
 import Tag from "../Tag/Tag";
+import TagWithDelete from "../TagWithDelete/TagWithDelete";
 import styles from "./TagSelector.module.css";
 
 const Store = window.require("electron-store");
@@ -18,36 +19,28 @@ const TagSelector = ({ selectedTags, setSelectedTags }) => {
 		setNewTag("");
 	}, [tags]);
 
-	const personTags = useMemo(() => tags.filter((t) => t.startsWith("person:")), [tags]);
-	const sourceTags = useMemo(() => tags.filter((t) => t.startsWith("source:")), [tags]);
+	const personTags = useMemo(() => getPrefixTags(tags, "person"), [tags]);
+	const sourceTags = useMemo(() => getPrefixTags(tags, "source"), [tags]);
 	const topicTags = useMemo(() => tags.filter((t) => !t.match(/^\w+:/)), [tags]);
 
 	const addTag = () => !tags.includes(newTag) && setTags([...tags, newTag]);
 	const createTagElement = (tag) => {
 		return (
-			<Tag highlight={selectedTags.includes(tag)} onClick={() => toggleTag(tag)}>
+			<TagWithDelete
+				canDelete={editMode}
+				highlight={isTagSelected(tag)}
+				onClick={() => toggleTag(tag)}
+				onDelete={() => deleteTag(tag)}
+			>
 				{tag}
-				{editMode ? (
-					<Button className={styles.deleteButton} onClick={(e) => deleteTag(e, tag)}>
-						<FontAwesomeIcon icon={faTrashAlt} />
-					</Button>
-				) : null}
-			</Tag>
+			</TagWithDelete>
 		);
 	};
-	const deleteTag = (event, tag) => {
-		event.stopPropagation();
-		setTags(tags.filter((t) => t !== tag));
-	};
+	const deleteTag = (tag) => setTags((t) => removeTag(t, tag));
 	const handleNewTagChange = ({ target: { value } }) => setNewTag(value);
+	const isTagSelected = useCallback((tag) => selectedTags.includes(tag), [selectedTags]);
 	const toggleEditMode = () => setEditMode((mode) => !mode);
-	const toggleTag = (tag) => {
-		if (selectedTags.includes(tag)) {
-			setSelectedTags(selectedTags.filter((t) => t !== tag));
-		} else {
-			setSelectedTags([...selectedTags, tag]);
-		}
-	};
+	const toggleTag = (tag) => setSelectedTags((st) => (st.includes(tag) ? removeTag(st, tag) : [...st, tag]));
 
 	return (
 		<div className={styles.sidebar}>
@@ -80,5 +73,8 @@ const TagSelector = ({ selectedTags, setSelectedTags }) => {
 		</div>
 	);
 };
+
+const getPrefixTags = (tags, prefix) => tags.filter((t) => t.startsWith(`${prefix}:`));
+const removeTag = (tags, tag) => tags.filter((t) => t !== tag);
 
 export default TagSelector;

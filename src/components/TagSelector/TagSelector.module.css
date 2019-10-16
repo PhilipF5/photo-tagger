@@ -2,11 +2,6 @@
 	color: rgb(36, 138, 61);
 }
 
-.deleteButton {
-	color: rgb(215, 0, 21);
-	font-size: 0.7em;
-}
-
 .newTag {
 	align-items: center;
 	display: flex;
