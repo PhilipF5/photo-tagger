@@ -1,4 +1,4 @@
-import { faCheck, faEdit, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faEdit, faEraser, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Button from "../Button/Button";
@@ -19,6 +19,7 @@ const TagSelector = ({ selectedTags, setSelectedTags, tags, setTags }) => {
 	const topicTags = useMemo(() => tags.filter((t) => !t.match(/^\w+:/)), [tags]);
 
 	const addTag = () => !tags.includes(newTag) && setTags([...tags, newTag]);
+	const clearTags = () => setTags([]);
 	const createTagElement = (tag) => {
 		return (
 			<TagWithDelete
@@ -50,6 +51,11 @@ const TagSelector = ({ selectedTags, setSelectedTags, tags, setTags }) => {
 					<Button onClick={toggleEditMode}>
 						<FontAwesomeIcon icon={editMode ? faCheck : faEdit} />
 					</Button>
+					{editMode ? (
+						<Button onClick={clearTags}>
+							<FontAwesomeIcon icon={faEraser} />
+						</Button>
+					) : null}
 				</h3>
 				<div className={styles.newTag}>
 					<input type="text" value={newTag} onChange={handleNewTagChange} placeholder="Add a tag..." />
