@@ -19,11 +19,17 @@ const Toolbar = ({ setImages, tags, setTags }) => {
 	const hasPrevPage = page > 1;
 
 	const handleExportTags = () => exportTagsToFile(tags);
-
+	const handleImportTags = async () => {
+		const newTags = await importTagsFromFile();
+		newTags && setTags(newTags);
+	};
 	const handleOpenFolder = async () => {
-		setPage(0);
-		setFolderContents(await openFolder());
-		setPage(1);
+		const fileNames = await openFolder();
+		if (fileNames) {
+			setPage(0);
+			setFolderContents(fileNames);
+			setPage(1);
+		}
 	};
 
 	useEffect(() => {
@@ -52,7 +58,7 @@ const Toolbar = ({ setImages, tags, setTags }) => {
 				</Button>
 			</div>
 			<div className={styles.group}>
-				<Button onClick={async () => setTags(await importTagsFromFile())}>
+				<Button onClick={handleImportTags}>
 					<FontAwesomeIcon icon={faFileImport} />
 				</Button>
 				<Button onClick={handleExportTags}>
