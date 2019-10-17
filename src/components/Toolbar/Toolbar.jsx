@@ -51,7 +51,7 @@ const Toolbar = ({ setImages }) => {
 
 const loadFiles = async (files, page) => {
 	const fileNames = getPageOfFiles(files, page, pageSize);
-	return Promise.all(fileNames.map((fileName) => loadFile(fileName)));
+	return Promise.all(fileNames.map((fileName) => loadFile(fileName, "base64")));
 };
 
 const loadFileNames = async () => {
