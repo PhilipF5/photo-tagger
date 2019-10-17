@@ -6,16 +6,11 @@ import Tag from "../Tag/Tag";
 import TagWithDelete from "../TagWithDelete/TagWithDelete";
 import styles from "./TagSelector.module.css";
 
-const Store = window.require("electron-store");
-const store = new Store({ name: "tagList" });
-
-const TagSelector = ({ selectedTags, setSelectedTags }) => {
+const TagSelector = ({ selectedTags, setSelectedTags, tags, setTags }) => {
 	const [editMode, setEditMode] = useState(false);
-	const [tags, setTags] = useState((store.get("tags") || []).sort());
 	const [newTag, setNewTag] = useState("");
 
 	useEffect(() => {
-		store.set("tags", tags);
 		setNewTag("");
 	}, [tags]);
 
