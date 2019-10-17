@@ -12,7 +12,7 @@ import Button from "../Button/Button";
 import styles from "./Toolbar.module.css";
 
 const {
-	remote: { dialog, getCurrentWindow },
+	remote: { dialog },
 } = window.require("electron");
 
 const pageSize = 100;
@@ -68,7 +68,7 @@ const Toolbar = ({ setImages, tags, setTags }) => {
 };
 
 const exportTagsToFile = async (tags) => {
-	const { filePath } = await dialog.showSaveDialog(getCurrentWindow());
+	const { filePath } = await dialog.showSaveDialog();
 	return saveFile(filePath, JSON.stringify(tags, undefined, 4));
 };
 
@@ -80,7 +80,7 @@ const loadFiles = async (files, page) => {
 const loadFileNames = async () => {
 	const {
 		filePaths: [folderPath],
-	} = await dialog.showOpenDialog(getCurrentWindow(), { properties: ["openDirectory"] });
+	} = await dialog.showOpenDialog({ properties: ["openDirectory"] });
 
 	return folderPath ? getFilesFromFolder(folderPath) : null;
 };
@@ -88,7 +88,7 @@ const loadFileNames = async () => {
 const loadTagsFromFile = async () => {
 	const {
 		filePaths: [filePath],
-	} = await dialog.showOpenDialog(getCurrentWindow(), { filters: [{ extensions: [".json"] }] });
+	} = await dialog.showOpenDialog({ filters: [{ extensions: [".json"] }] });
 
 	return filePath ? JSON.parse((await loadFile(filePath)).content) : null;
 };
