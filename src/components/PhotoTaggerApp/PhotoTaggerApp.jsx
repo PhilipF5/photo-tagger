@@ -20,7 +20,7 @@ const PhotoTaggerApp = () => {
 	return (
 		<div className={styles.app}>
 			<div className={styles.toolbar}>
-				<Toolbar setImages={setImages} />
+				<Toolbar setImages={setImages} tags={sortedTags} setTags={setTags} />
 			</div>
 			<Gallery images={images} setImages={setImages} selectedTags={selectedTags} />
 			<TagSelector
