@@ -7,15 +7,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
-import { getFilesFromFolder, getPageOfFiles, loadFile, saveFile } from "../../utilities/file-utilities";
+import { exportTagsToFile, importTagsFromFile, loadImages, openFolder, pageSize } from "../../utilities/file-utilities";
 import Button from "../Button/Button";
 import styles from "./Toolbar.module.css";
-
-const {
-	remote: { dialog },
-} = window.require("electron");
-
-const pageSize = 100;
 
 const Toolbar = ({ setImages, tags, setTags }) => {
 	const [folderContents, setFolderContents] = useState([]);
@@ -24,23 +18,25 @@ const Toolbar = ({ setImages, tags, setTags }) => {
 	const hasNextPage = page < pageCount;
 	const hasPrevPage = page > 1;
 
-	const openFolder = async () => {
+	const handleExportTags = () => exportTagsToFile(tags);
+
+	const handleOpenFolder = async () => {
 		setPage(0);
-		setFolderContents(await loadFileNames());
+		setFolderContents(await openFolder());
 		setPage(1);
 	};
 
 	useEffect(() => {
 		if (page > 0) {
 			setImages([]);
-			loadFiles(folderContents, page).then((files) => setImages(files));
+			loadImages(folderContents, page).then((files) => setImages(files));
 		}
 	}, [folderContents, page, setImages]);
 
 	return (
 		<div className={styles.toolbar}>
 			<div className={styles.group}>
-				<Button onClick={() => openFolder()}>
+				<Button onClick={handleOpenFolder}>
 					<FontAwesomeIcon icon={faFolderOpen} />
 				</Button>
 			</div>
@@ -56,41 +52,15 @@ const Toolbar = ({ setImages, tags, setTags }) => {
 				</Button>
 			</div>
 			<div className={styles.group}>
-				<Button onClick={async () => setTags(await loadTagsFromFile())}>
+				<Button onClick={async () => setTags(await importTagsFromFile())}>
 					<FontAwesomeIcon icon={faFileImport} />
 				</Button>
-				<Button onClick={() => exportTagsToFile(tags)}>
+				<Button onClick={handleExportTags}>
 					<FontAwesomeIcon icon={faFileExport} />
 				</Button>
 			</div>
 		</div>
 	);
-};
-
-const exportTagsToFile = async (tags) => {
-	const { filePath } = await dialog.showSaveDialog();
-	return saveFile(filePath, JSON.stringify(tags, undefined, 4));
-};
-
-const loadFiles = async (files, page) => {
-	const fileNames = getPageOfFiles(files, page, pageSize);
-	return Promise.all(fileNames.map((fileName) => loadFile(fileName, "base64")));
-};
-
-const loadFileNames = async () => {
-	const {
-		filePaths: [folderPath],
-	} = await dialog.showOpenDialog({ properties: ["openDirectory"] });
-
-	return folderPath ? getFilesFromFolder(folderPath) : null;
-};
-
-const loadTagsFromFile = async () => {
-	const {
-		filePaths: [filePath],
-	} = await dialog.showOpenDialog({ filters: [{ extensions: [".json"] }] });
-
-	return filePath ? JSON.parse((await loadFile(filePath)).content) : null;
 };
 
 export default Toolbar;
