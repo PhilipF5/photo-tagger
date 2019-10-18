@@ -130,7 +130,7 @@ export class XmpSidecar {
 		}
 		filePath = filePath || _path.format(this._filePath);
 		await _fs.writeFile(filePath, builder.buildObject(this.rawXml));
-		return new XmpSidecar(filePath);
+		return XmpSidecar.load(filePath);
 	}
 
 	public setAttribute(name: string, value: string): any {
