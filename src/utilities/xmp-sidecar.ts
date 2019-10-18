@@ -12,7 +12,7 @@ export class XmpSidecar {
 		return pathObject;
 	}
 
-	public static async load(pathToFile: string) {
+	public static async load(pathToFile: string, createImmediately?: boolean) {
 		const object = new XmpSidecar(pathToFile);
 		let sidecarContents;
 		try {
@@ -31,8 +31,8 @@ export class XmpSidecar {
 		</rdf:Description>
 	</rdf:RDF>
 </x:xmpmeta>`;
-			await _fs.writeFile(object.filePath, defaultSidecar);
-			sidecarContents = await _fs.readFile(object.filePath);
+			sidecarContents = defaultSidecar;
+			createImmediately && (await _fs.writeFile(object.filePath, defaultSidecar));
 		}
 
 		object._xml = await xml2js.parseStringPromise(sidecarContents);
