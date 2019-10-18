@@ -31,6 +31,8 @@ const Toolbar = ({ setImages, tags, setTags }) => {
 			setPage(1);
 		}
 	};
+	const handlePageNext = () => setPage((current) => current - 1);
+	const handlePagePrev = () => setPage((current) => current + 1);
 
 	useEffect(() => {
 		if (page > 0) {
@@ -47,13 +49,13 @@ const Toolbar = ({ setImages, tags, setTags }) => {
 				</Button>
 			</div>
 			<div className={styles.group}>
-				<Button disabled={!hasPrevPage} onClick={() => setPage((current) => current - 1)}>
+				<Button disabled={!hasPrevPage} onClick={handlePageNext}>
 					<FontAwesomeIcon icon={faStepBackward} />
 				</Button>
 				<div className={styles.pageCount}>
 					{page} / {pageCount}
 				</div>
-				<Button disabled={!hasNextPage} onClick={() => setPage((current) => current + 1)}>
+				<Button disabled={!hasNextPage} onClick={handlePagePrev}>
 					<FontAwesomeIcon icon={faStepForward} />
 				</Button>
 			</div>
