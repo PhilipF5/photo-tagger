@@ -1,5 +1,6 @@
 .toolbar {
 	align-items: center;
+	background-color: rgb(242, 242, 247);
 	display: flex;
 	font-size: 24px;
 	justify-content: space-between;
