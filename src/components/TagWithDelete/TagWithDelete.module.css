@@ -1,4 +1,4 @@
 .deleteButton {
-	color: rgb(215, 0, 21);
+	color: var(--negative-color);
 	font-size: 0.7em;
 }

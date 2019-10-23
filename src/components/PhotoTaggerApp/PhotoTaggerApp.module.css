@@ -1,4 +1,6 @@
 .app {
+	background-color: var(--bg-color);
+	color: var(--fg-color);
 	display: grid;
 	grid-template-columns: 2.25fr 0.75fr;
 	grid-template-rows: 50px minmax(0, 1fr);
@@ -9,4 +11,13 @@
 
 .toolbar {
 	grid-column: 1 / 3;
+}
+
+.darkMode {
+	--bg-color: rgb(28, 28, 30);
+	--fg-color: ghostwhite;
+	--shading-color: rgb(44, 44, 46);
+	--highlight-color: rgb(125, 122, 255);
+	--positive-color: rgb(48, 219, 91);
+	--negative-color: rgb(255, 105, 97);
 }

@@ -1,6 +1,6 @@
 .tag {
 	align-items: center;
-	border: 1px solid black;
+	border: 1px solid var(--fg-color);
 	border-radius: 5px;
 	cursor: pointer;
 	display: inline-flex;
@@ -9,6 +9,7 @@
 }
 
 .highlight {
-	background-color: black;
-	color: white;
+	background-color: var(--highlight-color);
+	border-color: var(--highlight-color);
+	color: var(--bg-color);
 }

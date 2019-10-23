@@ -1,5 +1,5 @@
 .addButton {
-	color: rgb(36, 138, 61);
+	color: var(--positive-color);
 }
 
 .newTag {
@@ -8,13 +8,20 @@
 }
 
 .newTag input {
+	background-color: transparent;
 	border: none;
-	border-bottom: 1px solid black;
+	border-bottom: 1px solid var(--fg-color);
+	color: var(--fg-color);
 	font: inherit;
 }
 
+.newTag input::placeholder {
+	color: var(--fg-color);
+	opacity: 0.25;
+}
+
 .newTag input:focus {
-	border-bottom-color: rgb(36, 138, 61);
+	border-bottom-color: var(--positive-color);
 	outline: none;
 }
 

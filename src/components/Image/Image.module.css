@@ -17,7 +17,7 @@
 }
 
 .image img:hover {
-	border-color: rgb(36, 138, 61);
+	border-color: var(--highlight-color);
 }
 
 .tags {
