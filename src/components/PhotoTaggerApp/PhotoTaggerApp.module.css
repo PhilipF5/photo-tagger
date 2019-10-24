@@ -21,3 +21,11 @@
 	--positive-color: rgb(48, 219, 91);
 	--negative-color: rgb(255, 105, 97);
 }
+
+.loading {
+	align-items: center;
+	display: flex;
+	height: 100%;
+	justify-content: center;
+	width: 100%;
+}

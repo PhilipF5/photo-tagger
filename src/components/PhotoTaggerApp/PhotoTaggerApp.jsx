@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import React, { useEffect, useMemo, useState } from "react";
 import Gallery from "../Gallery/Gallery";
+import LoadingIndicator from "../LoadingIndicator/LoadingIndicator";
 import TagSelector from "../TagSelector/TagSelector";
 import Toolbar from "../Toolbar/Toolbar";
 import styles from "./PhotoTaggerApp.module.css";
@@ -28,7 +29,13 @@ const PhotoTaggerApp = () => {
 			<div className={styles.toolbar}>
 				<Toolbar setImages={setImages} tags={sortedTags} setTags={setTags} />
 			</div>
-			<Gallery images={images} setImages={setImages} selectedTags={selectedTags} />
+			{images.length > 0 ? (
+				<Gallery images={images} setImages={setImages} selectedTags={selectedTags} />
+			) : (
+				<div className={styles.loading}>
+					<LoadingIndicator />
+				</div>
+			)}
 			<TagSelector
 				selectedTags={selectedTags}
 				setSelectedTags={setSelectedTags}
