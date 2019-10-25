@@ -75,7 +75,7 @@ export class XmpSidecar {
 	}
 
 	public get tags(): string[] {
-		return this._descTags["rdf:Bag"][0]["rdf:li"];
+		return this._descTags["rdf:Bag"][0]["rdf:li"] || [];
 	}
 
 	public set tags(value: string[]) {

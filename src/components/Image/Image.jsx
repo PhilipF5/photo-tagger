@@ -27,9 +27,12 @@ const Image = ({ data: { content, path }, selectedTags }) => {
 			<div className={styles.filename}>{path.base}</div>
 			<img src={"data:;base64," + content} onClick={applyTags} alt="" />
 			<div className={styles.tags}>
-				{xmpData.tags.sort().map((t) => (
-					<Tag onClick={() => removeTag(t)}>{t}</Tag>
-				))}
+				{xmpData.tags
+					.filter((t) => t)
+					.sort()
+					.map((t) => (
+						<Tag onClick={() => removeTag(t)}>{t}</Tag>
+					))}
 			</div>
 		</div>
 	);
