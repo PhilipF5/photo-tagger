@@ -16,6 +16,7 @@ const store = new Store({ name: "tagList" });
 const PhotoTaggerApp = () => {
 	const [darkMode, setDarkMode] = useState(systemPreferences.isDarkMode());
 	const [images, setImages] = useState([]);
+	const [loading, setLoading] = useState(false);
 	const [selectedTags, setSelectedTags] = useState([]);
 	const [tags, setTags] = useState(store.get("tags"));
 	const sortedTags = useMemo(() => tags.sort(), [tags]);
@@ -24,18 +25,26 @@ const PhotoTaggerApp = () => {
 		store.set("tags", tags);
 	}, [tags]);
 
+	useEffect(() => {
+		loading && images.length && setLoading(false);
+	}, [loading, images]);
+
 	return (
 		<div className={classNames(styles.app, { [styles.darkMode]: darkMode })}>
 			<div className={styles.toolbar}>
-				<Toolbar setImages={setImages} tags={sortedTags} setTags={setTags} />
+				<Toolbar setImages={setImages} tags={sortedTags} setLoading={setLoading} setTags={setTags} />
 			</div>
-			{images.length > 0 ? (
-				<Gallery images={images} setImages={setImages} selectedTags={selectedTags} />
-			) : (
+			{loading ? (
 				<div className={styles.loading}>
 					<LoadingIndicator />
 				</div>
-			)}
+			) : null}
+			{!loading && images.length ? (
+				<Gallery images={images} setImages={setImages} selectedTags={selectedTags} />
+			) : null}
+			{!loading && !images.length ? (
+				<div className={styles.instructions}>Open a folder to get started</div>
+			) : null}
 			<TagSelector
 				selectedTags={selectedTags}
 				setSelectedTags={setSelectedTags}

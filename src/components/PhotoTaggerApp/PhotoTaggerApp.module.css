@@ -22,7 +22,8 @@
 	--negative-color: rgb(255, 105, 97);
 }
 
-.loading {
+.loading,
+.instructions {
 	align-items: center;
 	display: flex;
 	height: 100%;

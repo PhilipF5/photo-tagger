@@ -11,7 +11,7 @@ import { exportTagsToFile, importTagsFromFile, loadImages, openFolder, pageSize 
 import Button from "../Button/Button";
 import styles from "./Toolbar.module.css";
 
-const Toolbar = ({ setImages, tags, setTags }) => {
+const Toolbar = ({ setImages, tags, setLoading, setTags }) => {
 	const [folderContents, setFolderContents] = useState([]);
 	const [page, setPage] = useState(0);
 	const pageCount = Math.ceil(folderContents.length / pageSize);
@@ -37,9 +37,12 @@ const Toolbar = ({ setImages, tags, setTags }) => {
 	useEffect(() => {
 		if (page > 0) {
 			setImages([]);
-			loadImages(folderContents, page).then((files) => setImages(files));
+			setLoading(true);
+			setTimeout(() => {
+				loadImages(folderContents, page).then((files) => setImages(files));
+			}, 3000);
 		}
-	}, [folderContents, page, setImages]);
+	}, [folderContents, page, setImages, setLoading]);
 
 	return (
 		<div className={styles.toolbar}>
