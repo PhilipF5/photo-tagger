@@ -1,4 +1,5 @@
 const { app, BrowserWindow } = require("electron");
+const { version } = require("./package.json");
 
 let win;
 
@@ -8,6 +9,7 @@ function createWindow() {
 		height: 768,
 		useContentSize: true,
 		resizable: false,
+		title: `Photo Tagger v${version}`,
 		webPreferences: {
 			nodeIntegration: true,
 		},
