@@ -18,8 +18,8 @@ const LoadingIndicator = () => {
 
 const createTimeline = (target) => {
 	return new TimelineMax()
-		.to(target, 0.5, { scaleX: 1.5, scaleY: 0.75, ease: Linear.easeInOut })
-		.to(target, 0.5, { scaleX: 1, scaleY: 1, ease: Linear.easeInOut })
+		.to(target, 0.25, { scaleX: 1.5, scaleY: 0.75, ease: Linear.easeInOut }, "+=0.25")
+		.to(target, 0.1, { scaleX: 1, scaleY: 1, ease: Linear.easeInOut })
 		.to(target, 0.5, { scaleX: 0.75, scaleY: 1.25, y: -100 })
 		.repeat(-1)
 		.yoyo(true);
