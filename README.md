@@ -1,44 +1,26 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Photo Tagger
 
-## Available Scripts
+Photo Tagger is a desktop app designed to make it easy to apply XMP sidecar tags to varied collections of photos.
 
-In the project directory, you can run:
+## Why?
 
-### `npm start`
+With all the comprehensive photo organization apps out there, it's worth asking what the point of this app is. Most apps that allow photo tagging use the same basic UX pattern: you select one or more photos, and then choose tags to apply to them. This allows two approaches:
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. Select/open each individual photo, and select all the tags to apply to that photo.
+2. Cmd-click a bunch of photos that all require the same tags, and then select all the tags to apply to the subset.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+In my opinion, this pattern is hard to use when working with large collections of photos that require many different combinations of tags to be applied to different groups of photos that may not be adjacent in the collection. Option 1 is extremely slow and tedious, with lots of repetitive clicking on tags. Option 2 is highly error-prone when working with large sets, as any mishap with the keyboard or cursor could interrupt your selection and require you to start over.
 
-### `npm test`
+Rather than an image-first workflow, Photo Tagger uses a tag-first workflow. You select the tags you want to apply, and then you click on each individual photo the tags should be applied to. The tags are saved immediately so you don't risk losing work, and your tag selection is persisted. Think of it as being able to "paint" photos with the currently selected set of tags. Since the app is all about tagging, each photo always has all applied tags listed under the thumbnail for maximum visibility.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## What?
 
-### `npm run build`
+Photo Tagger is an Electron app. The UI is built in React using function components and Hooks.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## How?
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+An executable download is not provided at this time. You can run the app straight from the cloned source code.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+```sh
+$ npm start
+```
