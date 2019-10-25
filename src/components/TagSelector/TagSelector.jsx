@@ -59,7 +59,7 @@ const TagSelector = ({ selectedTags, setSelectedTags, tags, setTags }) => {
 				</h3>
 				<div className={styles.newTag}>
 					<input type="text" value={newTag} onChange={handleNewTagChange} placeholder="Add a tag..." />
-					<Button className={styles.addButton} onClick={addTag}>
+					<Button className={styles.addButton} disabled={!newTag} onClick={addTag}>
 						<FontAwesomeIcon icon={faPlus} />
 					</Button>
 				</div>
