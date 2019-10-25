@@ -3,15 +3,21 @@ import { XmpSidecar } from "../../utilities/xmp-sidecar";
 import Tag from "../Tag/Tag";
 import styles from "./Image.module.css";
 
-const Image = ({ data: { content, path }, selectedTags }) => {
+const Image = ({
+	data: {
+		content,
+		path: { dir, base: fileName },
+	},
+	selectedTags,
+}) => {
 	const [xmpData, setXmpData] = useState({ tags: [] });
 
 	useEffect(() => {
 		const getXmpData = async () => {
-			setXmpData(await XmpSidecar.load(`${path.dir}/${path.base}`));
+			setXmpData(await XmpSidecar.load(`${dir}/${fileName}`));
 		};
 		getXmpData();
-	}, [path.dir, path.base]);
+	}, [dir, fileName]);
 
 	const applyTags = async () => {
 		xmpData.addTags(selectedTags);
@@ -24,7 +30,7 @@ const Image = ({ data: { content, path }, selectedTags }) => {
 
 	return (
 		<div className={styles.image}>
-			<div className={styles.filename}>{path.base}</div>
+			<div className={styles.filename}>{fileName}</div>
 			<img src={"data:;base64," + content} onClick={applyTags} alt="" />
 			<div className={styles.tags}>
 				{xmpData.tags
