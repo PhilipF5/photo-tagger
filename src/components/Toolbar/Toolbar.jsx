@@ -5,10 +5,9 @@ import {
 	faStepBackward,
 	faStepForward,
 } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { exportTagsToFile, importTagsFromFile, loadImages, openFolder, pageSize } from "../../utilities/file-utilities";
-import Button from "../Button/Button";
+import IconButton from "../IconButton/IconButton";
 import styles from "./Toolbar.module.css";
 
 const Toolbar = ({ setImages, tags, setLoading, setTags }) => {
@@ -47,28 +46,18 @@ const Toolbar = ({ setImages, tags, setLoading, setTags }) => {
 	return (
 		<div className={styles.toolbar}>
 			<div className={styles.group}>
-				<Button onClick={handleOpenFolder}>
-					<FontAwesomeIcon icon={faFolderOpen} />
-				</Button>
+				<IconButton icon={faFolderOpen} onClick={handleOpenFolder} />
 			</div>
 			<div className={styles.group}>
-				<Button disabled={!hasPrevPage} onClick={handlePageNext}>
-					<FontAwesomeIcon icon={faStepBackward} />
-				</Button>
+				<IconButton disabled={!hasPrevPage} icon={faStepBackward} onClick={handlePageNext} />
 				<div className={styles.pageCount}>
 					{page} / {pageCount}
 				</div>
-				<Button disabled={!hasNextPage} onClick={handlePagePrev}>
-					<FontAwesomeIcon icon={faStepForward} />
-				</Button>
+				<IconButton disabled={!hasNextPage} icon={faStepForward} onClick={handlePagePrev} />
 			</div>
 			<div className={styles.group}>
-				<Button onClick={handleImportTags}>
-					<FontAwesomeIcon icon={faFileImport} />
-				</Button>
-				<Button onClick={handleExportTags}>
-					<FontAwesomeIcon icon={faFileExport} />
-				</Button>
+				<IconButton icon={faFileImport} onClick={handleImportTags} />
+				<IconButton icon={faFileExport} onClick={handleExportTags} />
 			</div>
 		</div>
 	);

@@ -1,7 +1,6 @@
 import { faCheck, faEdit, faEraser, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import Button from "../Button/Button";
+import IconButton from "../IconButton/IconButton";
 import Tag from "../Tag/Tag";
 import TagWithDelete from "../TagWithDelete/TagWithDelete";
 import styles from "./TagSelector.module.css";
@@ -48,20 +47,12 @@ const TagSelector = ({ selectedTags, setSelectedTags, tags, setTags }) => {
 				<h3>Suggested tags</h3>
 				<h3>
 					All tags
-					<Button onClick={toggleEditMode}>
-						<FontAwesomeIcon icon={editMode ? faCheck : faEdit} />
-					</Button>
-					{editMode ? (
-						<Button onClick={clearTags}>
-							<FontAwesomeIcon icon={faEraser} />
-						</Button>
-					) : null}
+					<IconButton icon={editMode ? faCheck : faEdit} onClick={toggleEditMode} />
+					{editMode ? <IconButton icon={faEraser} onClick={clearTags} /> : null}
 				</h3>
 				<div className={styles.newTag}>
 					<input type="text" value={newTag} onChange={handleNewTagChange} placeholder="Add a tag..." />
-					<Button className={styles.addButton} disabled={!newTag} onClick={addTag}>
-						<FontAwesomeIcon icon={faPlus} />
-					</Button>
+					<IconButton className={styles.addButton} disabled={!newTag} icon={faPlus} onClick={addTag} />
 				</div>
 			</div>
 			<div className={styles.section}>
