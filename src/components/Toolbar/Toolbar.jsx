@@ -46,18 +46,23 @@ const Toolbar = ({ setImages, tags, setLoading, setTags }) => {
 	return (
 		<div className={styles.toolbar}>
 			<div className={styles.group}>
-				<IconButton icon={faFolderOpen} onClick={handleOpenFolder} />
+				<IconButton icon={faFolderOpen} onClick={handleOpenFolder} title="Open Folder..." />
 			</div>
 			<div className={styles.group}>
-				<IconButton disabled={!hasPrevPage} icon={faStepBackward} onClick={handlePagePrev} />
+				<IconButton
+					disabled={!hasPrevPage}
+					icon={faStepBackward}
+					onClick={handlePagePrev}
+					title="Previous Page"
+				/>
 				<div className={styles.pageCount}>
 					{page} / {pageCount}
 				</div>
-				<IconButton disabled={!hasNextPage} icon={faStepForward} onClick={handlePageNext} />
+				<IconButton disabled={!hasNextPage} icon={faStepForward} onClick={handlePageNext} title="Next Page" />
 			</div>
 			<div className={styles.group}>
-				<IconButton icon={faFileImport} onClick={handleImportTags} />
-				<IconButton icon={faFileExport} onClick={handleExportTags} />
+				<IconButton icon={faFileImport} onClick={handleImportTags} title="Import Tags..." />
+				<IconButton icon={faFileExport} onClick={handleExportTags} title="Export Tags..." />
 			</div>
 		</div>
 	);
