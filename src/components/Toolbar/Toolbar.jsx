@@ -30,8 +30,8 @@ const Toolbar = ({ setImages, tags, setLoading, setTags }) => {
 			setPage(1);
 		}
 	};
-	const handlePageNext = () => setPage((current) => current - 1);
-	const handlePagePrev = () => setPage((current) => current + 1);
+	const handlePageNext = () => setPage((current) => current + 1);
+	const handlePagePrev = () => setPage((current) => current - 1);
 
 	useEffect(() => {
 		if (page > 0) {
@@ -49,11 +49,11 @@ const Toolbar = ({ setImages, tags, setLoading, setTags }) => {
 				<IconButton icon={faFolderOpen} onClick={handleOpenFolder} />
 			</div>
 			<div className={styles.group}>
-				<IconButton disabled={!hasPrevPage} icon={faStepBackward} onClick={handlePageNext} />
+				<IconButton disabled={!hasPrevPage} icon={faStepBackward} onClick={handlePagePrev} />
 				<div className={styles.pageCount}>
 					{page} / {pageCount}
 				</div>
-				<IconButton disabled={!hasNextPage} icon={faStepForward} onClick={handlePagePrev} />
+				<IconButton disabled={!hasNextPage} icon={faStepForward} onClick={handlePageNext} />
 			</div>
 			<div className={styles.group}>
 				<IconButton icon={faFileImport} onClick={handleImportTags} />
