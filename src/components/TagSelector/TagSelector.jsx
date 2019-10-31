@@ -48,7 +48,7 @@ const TagSelector = ({ selectedTags, setSelectedTags, tags, setTags }) => {
 				<h3>
 					All tags
 					<IconButton icon={editMode ? faCheck : faEdit} onClick={toggleEditMode} title={"Edit Tags"} />
-					{editMode ? <IconButton icon={faEraser} onClick={clearTags} title="Clear Tags" /> : null}
+					{editMode && <IconButton icon={faEraser} onClick={clearTags} title="Clear Tags" />}
 				</h3>
 				<div className={styles.newTag}>
 					<input type="text" value={newTag} onChange={handleNewTagChange} placeholder="Add a tag..." />

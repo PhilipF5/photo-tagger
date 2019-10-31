@@ -34,17 +34,15 @@ const PhotoTaggerApp = () => {
 			<div className={styles.toolbar}>
 				<Toolbar setImages={setImages} tags={sortedTags} setLoading={setLoading} setTags={setTags} />
 			</div>
-			{loading ? (
+			{loading && (
 				<div className={styles.loading}>
 					<LoadingIndicator />
 				</div>
-			) : null}
-			{!loading && images.length ? (
+			)}
+			{!loading && !!images.length && (
 				<Gallery images={images} setImages={setImages} selectedTags={selectedTags} />
-			) : null}
-			{!loading && !images.length ? (
-				<div className={styles.instructions}>Open a folder to get started</div>
-			) : null}
+			)}
+			{!loading && !images.length && <div className={styles.instructions}>Open a folder to get started</div>}
 			<TagSelector
 				selectedTags={selectedTags}
 				setSelectedTags={setSelectedTags}

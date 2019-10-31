@@ -13,7 +13,7 @@ const TagWithDelete = ({ canDelete, children: tag, highlight, onClick, onDelete 
 	return (
 		<Tag highlight={highlight} onClick={onClick}>
 			{tag}
-			{canDelete ? <IconButton className={styles.deleteButton} icon={faTrashAlt} onClick={handleDelete} /> : null}
+			{canDelete && <IconButton className={styles.deleteButton} icon={faTrashAlt} onClick={handleDelete} />}
 		</Tag>
 	);
 };
