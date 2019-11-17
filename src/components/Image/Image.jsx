@@ -1,7 +1,10 @@
+import { XmpSidecar } from "@philipf5/xmp-sidecar";
 import React, { useEffect, useState } from "react";
-import { XmpSidecar } from "../../utilities/xmp-sidecar";
 import Tag from "../Tag/Tag";
 import styles from "./Image.module.css";
+
+const fsModule = window.require("fs").promises;
+const pathModule = window.require("path");
 
 const Image = ({
 	data: {
@@ -14,7 +17,7 @@ const Image = ({
 
 	useEffect(() => {
 		const getXmpData = async () => {
-			setXmpData(await XmpSidecar.load(`${dir}/${fileName}`));
+			setXmpData(await XmpSidecar.load(`${dir}/${fileName}`, { fsModule, pathModule }));
 		};
 		getXmpData();
 	}, [dir, fileName]);
