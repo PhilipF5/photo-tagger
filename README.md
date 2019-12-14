@@ -22,5 +22,6 @@ Photo Tagger is an Electron app. The UI is built in React using function compone
 An executable download is not provided at this time. You can run the app straight from the cloned source code.
 
 ```sh
+$ npm ci
 $ npm start
 ```
