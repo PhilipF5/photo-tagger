@@ -8,7 +8,7 @@ function createWindow() {
 		width: 1366,
 		height: 768,
 		useContentSize: true,
-		resizable: false,
+		resizable: true,
 		title: `Photo Tagger v${version}`,
 		webPreferences: {
 			nodeIntegration: true,
