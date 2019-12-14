@@ -7,14 +7,14 @@ import Toolbar from "../Toolbar/Toolbar";
 import styles from "./PhotoTaggerApp.module.css";
 
 const {
-	remote: { systemPreferences },
+	remote: { nativeTheme },
 } = window.require("electron");
 
 const Store = window.require("electron-store");
 const store = new Store({ name: "tagList" });
 
 const PhotoTaggerApp = () => {
-	const [darkMode, setDarkMode] = useState(systemPreferences.isDarkMode());
+	const [darkMode, setDarkMode] = useState(nativeTheme.shouldUseDarkColors);
 	const [images, setImages] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [selectedTags, setSelectedTags] = useState([]);
