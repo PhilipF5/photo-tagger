@@ -18,7 +18,7 @@ const PhotoTaggerApp = () => {
 	const [images, setImages] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [selectedTags, setSelectedTags] = useState([]);
-	const [tags, setTags] = useState(store.get("tags"));
+	const [tags, setTags] = useState(store.get("tags") || []);
 	const sortedTags = useMemo(() => tags.sort(), [tags]);
 
 	useEffect(() => {
