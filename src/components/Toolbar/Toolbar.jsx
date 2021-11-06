@@ -37,9 +37,7 @@ const Toolbar = ({ setImages, tags, setLoading, setTags }) => {
 		if (page > 0) {
 			setImages([]);
 			setLoading(true);
-			setTimeout(() => {
-				loadImages(folderContents, page).then((files) => setImages(files));
-			}, 3000);
+			loadImages(folderContents, page).then((files) => setImages(files));
 		}
 	}, [folderContents, page, setImages, setLoading]);
 

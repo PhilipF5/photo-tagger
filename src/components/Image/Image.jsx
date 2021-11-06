@@ -17,7 +17,12 @@ const Image = ({
 
 	useEffect(() => {
 		const getXmpData = async () => {
-			setXmpData(await XmpSidecar.load(`${dir}/${fileName}`, { fsModule, pathModule }));
+			try {
+				setXmpData(await XmpSidecar.load(`${dir}/${fileName}`, { fsModule, pathModule }));
+			} catch (e) {
+				console.error(`XMP sidecar for ${fileName} failed to load`);
+				throw e;
+			}
 		};
 		getXmpData();
 	}, [dir, fileName]);
